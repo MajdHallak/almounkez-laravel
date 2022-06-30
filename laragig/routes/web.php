@@ -11,31 +11,19 @@ use App\Http\Controllers\ListingController;
 // index: Show all listings
 // show: Show single listing
 // create: Show form to create new listing
-// store: Store new listing
+// store: Store new listing <
 // edit: Show form to edit listing
 // update: Update listing
 // destroy: Delete listing
-// All Listings
+
+// ALL LISTINGS:
 Route::get('/', [ListingController::class , 'index']);
 
-// Single Listing:
+// CREATE LISTING:
+Route::get('/listings/create', [ListingController::class , 'create']);
+
+// STORE LISTING:
+Route::post('/listings', [ListingController::class , 'store']);
+
+// SINGLE LISTING:
 Route::get('/listings/{listing}', [ListingController::class , 'show']);
-
-
-
-
-
-// Route::get('/hello', function () {
-//     return response('<h1>Welcome</h1>', 200)
-//     ->header('content-type', 'text/plain')
-//     ->header('foo', 'bar');
-// });
-
-// Route::get('/posts/{id}', function ($id) {
-//     ddd($id);
-//     return response('posts ' . $id);
-// })->where('id', '[0-9]+');
-
-// Route::get('/search', function (Request $request) {
-//     return $request->name . ' ' . $request->city;
-// });
