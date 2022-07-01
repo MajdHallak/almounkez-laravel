@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Providers\AppServiceProvider;
 
 class Listing extends Model
 {
     use HasFactory;
+
+    /* AppServiceProvider */
+    // protected $fillable = ['title', 'company', 'website', 'location', 'email', 'description', 'tags'];
 
     public function scopeFilter($query, array $filters)
     {

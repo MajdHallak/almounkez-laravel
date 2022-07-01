@@ -20,4 +20,7 @@ test:{{$test}} --}}
 <p>No listings found!</p>
 @endunless
 </div>
+<div class="mt-10 p-4">
+    {{  $listings->links() }}
+</div>
 </x-layout>

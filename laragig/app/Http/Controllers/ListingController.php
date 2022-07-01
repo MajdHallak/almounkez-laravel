@@ -11,10 +11,11 @@ class ListingController extends Controller
     //show all listings
     public function index()
     {
+        // dd(Listing::latest()->filter(request(['tag', 'search']))->paginate(2));
         // dd(request()->tag);
         return view('listings.index',
         [
-            'listings' => Listing::latest()->filter(request(['tag', 'search']))->get()
+            'listings' => Listing::latest()->filter(request(['tag', 'search']))-> /* get() */simplePaginate(4)
         ]);
     }
 
@@ -36,7 +37,7 @@ class ListingController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $formFields = [
+        $formFields = $request->validate([
             "title" => 'required',
             "company" => ['required', Rule::unique('listings', 'company')],
             "location" => 'required',
@@ -44,8 +45,11 @@ class ListingController extends Controller
             "email" => ['required', 'email'],
             "tags" => 'required',
             'description' => 'required'
-        ];
+        ]);
 
-        return redirect('/');
+        Listing::create($formFields);
+
+        return redirect('/')
+            ->with('message', 'Listing created Successfully!');
     }
 }
