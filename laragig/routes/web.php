@@ -28,6 +28,11 @@ Route::post('/listings', [ListingController::class , 'store']);
 // SHOW EDIT FORM:
 Route::get('/listings/{listing}/edit', [ListingController::class , 'edit']);
 
+// EDIT SUBMIT TO UPDATE
+Route::put('/listings/{listing}', [ListingController::class , 'update']);
+
+// EDIT SUBMIT TO UPDATE
+Route::delete('/listings/{listing}', [ListingController::class , 'destroy']);
 
 
 // SINGLE LISTING:

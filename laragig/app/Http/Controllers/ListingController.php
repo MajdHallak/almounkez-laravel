@@ -22,6 +22,7 @@ class ListingController extends Controller
     //show single listing
     public function show(Listing $listing)
     {
+        // dd($listing->all());
         return view('listings.show', [
             // model find() is already included in $listing
             'listing' => $listing
@@ -61,6 +62,39 @@ class ListingController extends Controller
     // SHOW EDIT FORM
     public function edit(Listing $listing)
     {
+        // dd($listing->description);
         return view("listings.edit", ['listing' => $listing]);
     }
+    public function update(Request $request, Listing $listing)
+    {
+        // dd($request->all());
+        // dd($request->file('logo')->store());
+        $formFields = $request->validate([
+            "title" => 'required',
+            "company" => ['required'],
+            "location" => 'required',
+            "website" => 'required',
+            "email" => ['required', 'email'],
+            "tags" => 'required',
+            'description' => 'required'
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        $listing->update($formFields);
+
+        return back()
+            ->with('message', 'Listing updated Successfully!');
+    }
+
+    public function destroy(Listing $listing)
+    {
+        $listing->delete();
+        return redirect('/')->with('message', 'Listing Deleted Successfully!');
+    }
+
+
+
 }
