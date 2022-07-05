@@ -6,7 +6,7 @@
             </h2>
             <p class="mb-4">Create an account to post gigs</p>
         </header>
-        <form method="POST" action="/login">
+        <form method="POST" action="/users/authenticate">
             @csrf
 
             <div class="mb-6">
@@ -33,8 +33,6 @@
                 @enderror
             </div>
 
-
-
             <div class="mb-6">
                 <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
                     Login
@@ -43,7 +41,7 @@
 
             <div class="mt-8">
                 <p>Don't have an account?
-                    <a href="register" class="text-laravel"> Register</a>
+                    <a href="/register" class="text-laravel"> Register</a>
                 </p>
             </div>
         </form>
