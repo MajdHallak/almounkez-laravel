@@ -22,34 +22,44 @@ use PharIo\Version\UnsupportedVersionConstraintException;
 Route::get('/', [ListingController::class, 'index']);
 
 // SHOW CREATE LISTING:
-Route::get('/listings/create', [ListingController::class, 'create'])->middleware('auth');
+Route::get('/listings/create', [ListingController::class, 'create'])
+    ->middleware('auth');
 
 // STORE LISTING DATA:
-Route::post('/listings', [ListingController::class, 'store']);
+Route::post('/listings', [ListingController::class, 'store'])
+    ->middleware('auth');
 
 // SHOW EDIT FORM:
-Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])
+    ->middleware('auth');
 
 // EDIT SUBMIT TO UPDATE
-Route::put('/listings/{listing}', [ListingController::class, 'update']);
+Route::put('/listings/{listing}', [ListingController::class, 'update'])
+    ->middleware('auth');
 
 // EDIT SUBMIT TO UPDATE
-Route::delete('/listings/{listing}', [ListingController::class, 'destroy']);
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])
+    ->middleware('auth');
 
 // SINGLE LISTING:
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
 // SHOW REGISTER/CREATE
-Route::get('/register', [UserController::class, 'create']);
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
 // CREATE NEW USER
 Route::post('/users', [UserController::class, 'store']);
 
 // Log User Out
-Route::post('/logout', [UserController::class, 'logout']);
+Route::post('/logout', [UserController::class, 'logout'])
+    ->middleware('auth');
 
 // Show Login Form
-Route::get('/login', [UserController::class, 'login'])->name('login')/* added a name for middleware authenticate.php */;
+Route::get('/login', [UserController::class, 'login'])
+    ->name('login')
+    ->middleware('guest');/* added a name for middleware authenticate.php */
 
 // Login User
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
+Route::get('/users/{listing}/manage', [UserController::class, 'manage']);
