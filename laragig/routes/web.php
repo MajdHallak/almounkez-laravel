@@ -26,20 +26,20 @@ Route::get('/listings/create', [ListingController::class, 'create'])
     ->middleware('auth');
 
 // STORE LISTING DATA:
-Route::post('/listings', [ListingController::class, 'store'])
-    ->middleware('auth');
+Route::post('/listings', [ListingController::class, 'store'])->middleware('auth');
 
 // SHOW EDIT FORM:
 Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])
     ->middleware('auth');
 
 // EDIT SUBMIT TO UPDATE
-Route::put('/listings/{listing}', [ListingController::class, 'update'])
-    ->middleware('auth');
+Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
 
 // EDIT SUBMIT TO UPDATE
-Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])
-    ->middleware('auth');
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
+
+// Manage Listings
+Route::get('/listings/manage', [ListingController::class, 'manage']);
 
 // SINGLE LISTING:
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
@@ -51,15 +51,10 @@ Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 Route::post('/users', [UserController::class, 'store']);
 
 // Log User Out
-Route::post('/logout', [UserController::class, 'logout'])
-    ->middleware('auth');
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 // Show Login Form
-Route::get('/login', [UserController::class, 'login'])
-    ->name('login')
-    ->middleware('guest');/* added a name for middleware authenticate.php */
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');/* added a name for middleware authenticate.php */
 
 // Login User
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
-
-Route::get('/users/{listing}/manage', [UserController::class, 'manage']);

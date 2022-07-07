@@ -68,6 +68,12 @@ class ListingController extends Controller {
     public function update(Request $request, Listing $listing) {
         // dd($request->all());
         // dd($request->file('logo')->store());
+
+        // make sure user logged in is owner
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'unauthorized action');
+        }
+
         $formFields = $request->validate([
             "title" => 'required',
             "company" => ['required'],
@@ -88,14 +94,16 @@ class ListingController extends Controller {
             ->with('message', 'Listing updated Successfully!');
     }
 
+    // Manage Listings
+    public function manage() {
+        return view('listings.manage', [
+            'listings' => auth()->user()->listings()->get()
+        ]);
+    }
+
     // public function destroy(Listing $listing)
     // {
     //     $listing->delete();
     //     return redirect('/')->with('message', 'Listing Deleted Successfully!');
     // }
-
-
-
-
-
 }
